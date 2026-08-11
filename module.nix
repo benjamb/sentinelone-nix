@@ -21,7 +21,7 @@ let
     what = "${cfg.package}/opt/sentinelone/${path}";
     where = "/opt/sentinelone/${path}";
     type = "none";
-    options = "bind,ro";
+    options = "bind,ro,x-systemd.required-by=sentinelone.service";
     requires = [
       "opt-sentinelone.mount"
       "sentinelone-init.service"
