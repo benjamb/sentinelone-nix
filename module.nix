@@ -21,7 +21,7 @@ let
     what = "${cfg.package}/opt/sentinelone/${path}";
     where = "/opt/sentinelone/${path}";
     type = "none";
-    options = "bind,ro,x-systemd.required-by=sentinelone.service";
+    options = "bind,ro";
     requires = [
       "opt-sentinelone.mount"
       "sentinelone-init.service"
@@ -30,6 +30,11 @@ let
       "opt-sentinelone.mount"
       "sentinelone-init.service"
     ];
+    unitConfig = {
+      DefaultDependencies = "no";
+      Conflicts = "umount.target";
+      Before = "umount.target";
+    };
   };
   initScript = pkgs.writeShellScriptBin "sentinelone-init.sh" ''
     #!/bin/bash
